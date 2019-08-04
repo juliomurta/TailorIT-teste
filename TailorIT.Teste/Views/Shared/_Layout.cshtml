@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/css/bootstrap.min.css" />    
+    <style>
+        .input-validation-error {
+            border-color: red;
+            background-color: #fee;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-md-12">
+        @RenderBody()
+    </div>
+    <script asp-src-include="lib/jquery/jquery.js"></script>
+    <script asp-src-include="lib/jquerymask/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".date-format").mask("99/99/9999");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+﻿@model RelatorioViewModel
+
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "_Layout";
+}
+<div style="margin-top:20px">
+    @if (TempData["resultadoSucesso"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["resultadoSucesso"]
+        </div>
+    }
+
+    @if (TempData["resultadoErro"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["resultadoErro"]
+        </div>
+    }
+</div>
+
+<h1>Lista de usuários</h1>
+
+<div class="col-md-12">
+    <div>
+        <a asp-action="Inserir" asp-controller="Usuario">Inserir Novo</a>
+    </div>
+    <form asp-action="Listar">
+        <div class="row">
+            <div class="form-group col-md-5">
+                <label asp-for="Filtros.Nome" class="control-label"></label>
+                <input asp-for="Filtros.Nome" class="form-control" />
+            </div>
+            <div class="form-group col-md-2">
+                <label asp-for="Filtros.Ativo" class="control-label"></label>
+                <select asp-for="Filtros.Ativo" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="1">Sim</option>
+                    <option value="2">Não</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2" style="padding-top:30px">
+                <input type="submit" value="Pesquisar" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Usuarios != null && Model.Usuarios.Count > 0)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data de Nascimento</th>
+                    <th>E-mail</th>
+                    <th>Sexo</th>
+                    <th>Ativo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Usuarios)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DataNascimento)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>
+                            @if (item.SexoId == "1")
+                            {
+                                <text>Masculino</text>
+                            }
+                            else
+                            {
+                                <text>Feminino</text>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Ativo)
+                            {
+                                <text>Sim</text>
+                            }
+                            else
+                            {
+                                <text>Não</text>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data de Nascimento</th>
+                    <th>E-mail</th>
+                    <th>Sexo</th>
+                    <th>Ativo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="5" style="text-align: center">
+                        Não existem dados para serem exibidos
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
